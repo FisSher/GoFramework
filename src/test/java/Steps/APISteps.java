@@ -40,7 +40,7 @@ public class APISteps {
 
 
     @Given("^a GET request is sent to the (.+) endpoint$")
-    public void sendGETRequest(String URI) {
+    public void setBaseUri(String URI) {
         request =  given()
                 .headers(
                         "Authorization",
@@ -51,13 +51,11 @@ public class APISteps {
     }
 
     @Then("^a (\\d+) status code is received$")
-    public void validateListOfUsers(int expecteStatusCode) {
+    public void validateResponseCode(int expecteStatusCode) {
         response = request
                 .when()
                 .get("users");
         json = response.then().statusCode(expecteStatusCode);
-        List <String> jsonResponse = response.jsonPath().getList("data");
-        assertEquals(jsonResponse.size(),20);
     }
 
 
